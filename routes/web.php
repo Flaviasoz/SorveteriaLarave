@@ -19,8 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('estados', [EstadosController::class, 'index'])->name('estados');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix'=>'estados', 'where' => ['codSigla' => '[a-zA-Z]+']], function() {
+    Route::get ('',                   ['as'=>'estados',         'uses'=>'EstadosController@index'  ]);
+    Route::get ('create',             ['as'=>'estados.create',  'uses'=>'EstadosController@create' ]);
+    Route::get ('{codSigla}/destroy', ['as'=>'estados.destroy', 'uses'=>'EstadosController@destroy']);
+    Route::get ('{codSigla}/edit',    ['as'=>'estados.edit',    'uses'=>'EstadosController@edit'   ]);
+    Route::put ('{codSigla}/update',  ['as'=>'estados.update',  'uses'=>'EstadosController@update' ]);
+    Route::post('store',              ['as'=>'estados.store',   'uses'=>'EstadosController@store'  ]);
+});
+

@@ -1,6 +1,6 @@
-@extends('adminlte::page')
+@extends('layouts.default')
 
-@section('title', 'Tabela Personalizada')
+@section('title', 'Lista Estados')
 
 @section('content')
     <div class="row" style="padding-top: 20px;">
@@ -13,7 +13,7 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Sigla</th>
                                 <th style="width: 40%;">Nome</th>
                                 <th style="width: 20%;" class="text-center">Editar</th>
                                 <th style="width: 20%;" class="text-center">Excluir</th>
@@ -25,10 +25,12 @@
                                     <td>{{ $estado->codSigla }}</td>
                                     <td>{{ $estado->nome }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-primary">Editar</button>
+                                        <a href="{{ route('estados.edit', ['codSigla' => $estado->codSigla]) }}"
+                                            class="btn-sm btn-success">Editar</a>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-danger">Excluir</button>
+                                        <a href="#" onclick="return ConfirmaExclusao('{{ $estado->codSigla }}')"
+                                            class="btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             @empty
@@ -42,8 +44,14 @@
             </div>
         </div>
     </div>
+    {{ $estados->links() }}
+    <a href="{{ route('estados.create', []) }}" class="btn btn-info">Adicionar</a>
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('table-delete')
+    "estados"
 @stop
