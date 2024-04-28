@@ -33,3 +33,11 @@ Route::group(['prefix'=>'estados', 'where' => ['codSigla' => '[a-zA-Z]+']], func
     Route::post('store',              ['as'=>'estados.store',   'uses'=>'EstadosController@store'  ]);
 });
 
+Route::group(['prefix'=>'categoria', 'where' => ['codCategoria' => '[0-9]+']], function() {
+    Route::get ('',                       ['as'=>'categoria',         'uses'=>'CategoriaController@index'  ]);
+    Route::get ('create',                 ['as'=>'categoria.create',  'uses'=>'CategoriaController@create' ]);
+    Route::get ('{codCategoria}/destroy', ['as'=>'categoria.destroy', 'uses'=>'CategoriaController@destroy']);
+    Route::get ('{codCategoria}/edit',    ['as'=>'categoria.edit',    'uses'=>'CategoriaController@edit'   ]);
+    Route::put ('{codCategoria}/update',  ['as'=>'categoria.update',  'uses'=>'CategoriaController@update' ]);
+    Route::post('store',                  ['as'=>'categoria.store',   'uses'=>'CategoriaController@store'  ]);
+});
