@@ -41,3 +41,16 @@ Route::group(['prefix'=>'categoria', 'where' => ['codCategoria' => '[0-9]+']], f
     Route::put ('{codCategoria}/update',  ['as'=>'categoria.update',  'uses'=>'CategoriaController@update' ]);
     Route::post('store',                  ['as'=>'categoria.store',   'uses'=>'CategoriaController@store'  ]);
 });
+
+Route::group(['prefix'=>'usuarios', 'where' => ['codUsuario' => '[0-9]+']], function() {
+    Route::get ('',                       ['as'=>'usuarios',         'uses'=>'UsuarioController@index'  ]);
+    Route::get ('create',                 ['as'=>'usuarios.create',  'uses'=>'UsuarioController@create' ]);
+    Route::get ('{codUsuario}/destroy',    ['as'=>'usuarios.destroy', 'uses'=>'UsuarioController@destroy']);
+    Route::get ('{codUsuario}/edit',       ['as'=>'usuarios.edit',    'uses'=>'UsuarioController@edit'   ]);
+    Route::put ('{codUsuario}/update',     ['as'=>'usuarios.update',  'uses'=>'UsuarioController@update' ]);
+    Route::post('store',                   ['as'=>'usuarios.store',   'uses'=>'UsuarioController@store'  ]);
+});
+
+
+
+

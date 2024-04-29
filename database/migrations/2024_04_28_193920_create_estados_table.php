@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('estados')) {
         Schema::create('estados', function (Blueprint $table) {
             $table->string('codSigla', 2)->primary();
             $table->string('nome', 100);
             $table->timestamps();
         });
+    }
     }
 
     /**

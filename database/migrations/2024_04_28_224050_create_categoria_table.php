@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('categoria')) {
         Schema::create('categoria', function (Blueprint $table) {
             $table->bigInteger('codCategoria', 15);
             $table->string('desCategoria', 100);
             $table->timestamps();
-            
+
             $table->primary('codCategoria');
         });
+    }
     }
 
     /**
