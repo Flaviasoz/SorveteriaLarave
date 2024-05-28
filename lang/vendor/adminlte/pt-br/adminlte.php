@@ -5,6 +5,7 @@ return [
     'full_name' => 'Nome completo',
     'email' => 'Email',
     'password' => 'Senha',
+    'codUsuario' => 'Cod Usuario',
     'retype_password' => 'Repita a senha',
     'remember_me' => 'Lembrar-me',
     'register' => 'Registrar',
