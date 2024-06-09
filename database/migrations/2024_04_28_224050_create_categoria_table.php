@@ -6,29 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         if (!Schema::hasTable('categoria')) {
-        Schema::create('categoria', function (Blueprint $table) {
-            $table->bigInteger('codCategoria', 15);
-            $table->string('desCategoria', 100);
-            $table->timestamps();
-
-            $table->primary('codCategoria');
-        });
-    }
+            Schema::create('categoria', function (Blueprint $table) {
+                $table->increments('codCategoria');
+                $table->string('desCategoria', 100);
+                $table->timestamps();
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('categoria');

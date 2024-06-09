@@ -2,39 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\EstadoRequest;
 use App\Models\Estado;
+use Illuminate\Http\Request;
 
 class EstadosController extends Controller
 {
-    public function index(){
-        $estados = Estado::orderBy('codSigla')->paginate(5);
-        return view('estados.index', ['estados' => $estados]);
+
+    public function create(EstadoRequest $request)
+    {
+        $novoEstado = Estado::create($request->all());
+
+        return response()->json($novoEstado, 201);
     }
 
-    public function create(){
-        return view('estados.create');
+    public function read(Request $request)
+    {
+        $query = Estado::query();
+
+        if ($request->has('codSigla')) {
+            $query->where('codSigla', $request->codSigla);
+        }
+
+        $estados = $query->orderBy('codSigla')->paginate(5);
+
+        return response()->json($estados, 200);
     }
 
-    public function store(EstadoRequest $request) {
-        $novo =  $request->all();
-        Estado::create($novo);
-
-        return redirect()->route('estados');
-    }
-
-    public function destroy($codSigla) {
-        Estado::find($codSigla)->delete();
-        return redirect()->route('estados');
-    }
-
-    public function edit($codSigla) {
+    public function update(EstadoRequest $request, $codSigla)
+    {
         $estado = Estado::find($codSigla);
-        return view('estados.edit', compact('estado'));
+        if (!$estado) {
+            return response()->json(['message' => 'Estado não encontrado'], 404);
+        }
+
+        $estado->update($request->all());
+        return response()->json(['message' => 'Estado atualizado com sucesso'], 200);
     }
 
-    public function update(EstadoRequest $request, $codSigla) {
-        Estado::find($codSigla)->update($request->all());
-        return redirect()->route('estados');
+    public function delete($codSigla)
+    {
+        $estado = Estado::find($codSigla);
+        if (!$estado) {
+            return response()->json(['message' => 'Estado não encontrado'], 404);
+        }
+
+        $estado->delete();
+        return response()->json(['message' => 'Estado excluído com sucesso'], 200);
     }
 }
