@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 64px);
+    background-image: url('../assets/capaLogin.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    opacity: 0.75;
+}
