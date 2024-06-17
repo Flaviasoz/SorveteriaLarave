@@ -41,6 +41,7 @@ export default function Vendas() {
                 });
             });
 
+            alert(`Venda finalizada com sucesso. Cupom N.º${r.data.numCupom}!`);
             setBag([]);
         },
     });
@@ -63,72 +64,82 @@ export default function Vendas() {
             <Head title="Sorveteria" />
             <NavBar />
             <div className="px-3 py-10 bg-gray-100 min-h-[calc(100vh-64px)] flex flex-col">
-                <div className=" max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {produtos?.data?.data?.data.map((produto) => (
-                        <ProductCard
-                            key={produto.codProduto}
-                            produto={produto}
-                            onAddToBag={handleAddToBag}
-                        />
-                    ))}
-                </div>
-                <footer className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4 shadow-md flex justify-between items-center">
-                    <div className="flex-col w-full">
-                        {expand && (
-                            <div className="flex-col w-full max-h-36 overflow-y-auto">
-                                {bag.map((produto, i) => (
-                                    <div
-                                        key={
-                                            produto.codProduto.toString() +
-                                            i.toString()
-                                        }
-                                        className="w-full flex justify-between items-center mb-1.5"
-                                    >
-                                        <span className="flex">
-                                            R$ {produto.valor} {" - "}{" "}
-                                            {produto.desProduto}
-                                        </span>
+                {finalizarVenda.isLoading || inserirItems.isLoading ? (
+                    <div className="text-center">Finalizando a venda</div>
+                ) : (
+                    <>
+                        {" "}
+                        <div className=" max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {produtos?.data?.data?.data.map((produto) => (
+                                <ProductCard
+                                    key={produto.codProduto}
+                                    produto={produto}
+                                    onAddToBag={handleAddToBag}
+                                />
+                            ))}
+                        </div>
+                        <footer className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-4 shadow-md flex justify-between items-center">
+                            <div className="flex-col w-full">
+                                {expand && (
+                                    <div className="flex-col w-full max-h-36 overflow-y-auto">
+                                        {bag.map((produto, i) => (
+                                            <div
+                                                key={
+                                                    produto.codProduto.toString() +
+                                                    i.toString()
+                                                }
+                                                className="w-full flex justify-between items-center mb-1.5"
+                                            >
+                                                <span className="flex">
+                                                    R$ {produto.valor} {" - "}{" "}
+                                                    {produto.desProduto}
+                                                </span>
 
+                                                <button
+                                                    className="mx-2 text-white bg-red-500 rounded-md px-2"
+                                                    onClick={() =>
+                                                        handleRemoveToBag(i)
+                                                    }
+                                                >
+                                                    Remover
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                {bag.length > 0 && (
+                                    <div className="flex w-full justify-end my-2">
                                         <button
-                                            className="mx-2 text-white bg-red-500 rounded-md px-2"
-                                            onClick={() => handleRemoveToBag(i)}
+                                            className="text-white bg-blue-500 rounded-md px-2"
+                                            onClick={() => setExpand(!expand)}
                                         >
-                                            Remover
+                                            {expand ? "Esconder " : "Ver "}{" "}
+                                            produtos
                                         </button>
                                     </div>
-                                ))}
+                                )}
+                                <div className="flex w-full justify-between">
+                                    <span className="text-lg font-semibold mt-2">
+                                        Total: R$ {valorTotal}
+                                    </span>
+                                    <button
+                                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                                        onClick={() => {
+                                            if (valorTotal > 0) {
+                                                finalizarVenda.mutateAsync({
+                                                    valorTotal,
+                                                    codUsuario: 3,
+                                                });
+                                            }
+                                        }}
+                                    >
+                                        Finalizar Venda
+                                    </button>
+                                </div>
                             </div>
-                        )}
-                        {bag.length > 0 && (
-                            <div className="flex w-full justify-end my-2">
-                                <button
-                                    className="text-white bg-blue-500 rounded-md px-2"
-                                    onClick={() => setExpand(!expand)}
-                                >
-                                    {expand ? "Esconder " : "Ver "} produtos
-                                </button>
-                            </div>
-                        )}
-                        <div className="flex w-full justify-between">
-                            <span className="text-lg font-semibold mt-2">
-                                Total: R$ {valorTotal}
-                            </span>
-                            <button
-                                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
-                                onClick={() => {
-                                    if (valorTotal > 0) {
-                                        finalizarVenda.mutateAsync({
-                                            valorTotal,
-                                            codUsuario: 3,
-                                        });
-                                    }
-                                }}
-                            >
-                                Finalizar Venda
-                            </button>
-                        </div>
-                    </div>
-                </footer>
+                        </footer>
+                    </>
+                )}
             </div>
         </>
     );
