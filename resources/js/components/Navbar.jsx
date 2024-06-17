@@ -2,6 +2,8 @@ import instance from "@/services";
 import { Head, Link } from "@inertiajs/react";
 import Cookies from "js-cookie";
 import foto from "../../assets/foto.svg";
+import { logout } from "@/services/apis";
+import { useMutation } from "react-query";
 
 const NavBar = () => {
     const getToken = () => {
@@ -17,8 +19,13 @@ const NavBar = () => {
         return infodec;
     };
 
-    const logout = () => {
+    const logoutM = useMutation(logout);
+
+    const logon = () => {
+        logoutM.mutateAsync();
         Cookies.remove("LOGIN_INFO");
+        Cookies.remove("laravel_session");
+        Cookies.remove("XSRF-TOKEN");
         localStorage.clear();
         window.location.href = route("login");
     };
@@ -80,7 +87,7 @@ const NavBar = () => {
                                         getUser()?.sobrenome}
                                 </span>
                                 <button
-                                    onClick={logout}
+                                    onClick={logon}
                                     className="font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 >
                                     <img src={foto} alt="logout" />

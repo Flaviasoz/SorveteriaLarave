@@ -15,8 +15,10 @@ instance.interceptors.response.use(
     return Promise.resolve(response)
   },
   (error) => {
-    console.log("ocoreu um erro na api", error)
-    return Promise.reject(error)
+    if (error.response.status === 401 && !error.config.url.includes('/login')) {
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
   },
 )
 

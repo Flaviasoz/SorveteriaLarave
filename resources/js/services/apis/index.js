@@ -133,3 +133,8 @@ export const realizarlogin = async (data) => {
     const response = await axios.delete(`/item-venda/${id}`);
     return Promise.resolve(response);
   }
+
+  export const logout = async () => {
+    const response = await axios.post('/logout');
+    return Promise.resolve(response);
+  }

@@ -16,7 +16,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth')->group(function () {
     // estados
     Route::post('/estados', [EstadosController::class, 'create'])->name('estados.create');
     Route::get('/estados', [EstadosController::class, 'read'])->name('estados.read');
@@ -47,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/item-venda', [ItemVendaController::class, 'read'])->name('item-venda.read');
     Route::put('/item-venda/{id}', [ItemVendaController::class, 'update'])->name('item-venda.update');
     Route::delete('/item-venda/{id}', [ItemVendaController::class, 'delete'])->name('item-venda.delete');
+    // logout
+    Route::post('/logout', [LoginController::class, 'logout']);
 });
 
 Route::get('/test', function () {
