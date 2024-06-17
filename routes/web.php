@@ -32,3 +32,7 @@ Route::get('/fornecedores', function () {
 Route::get('/produtos', function () {
     return Inertia::render('Produtos');
 })->name('produtos');
+
+Route::get('/vendas', function () {
+    return Inertia::render('Vendas');
+})->name('vendas');

@@ -55,6 +55,12 @@ const NavBar = () => {
                                 >
                                     Produtos
                                 </Link>
+                                <Link
+                                    href={route("vendas")}
+                                    className="text-white hover:text-gray-300 px-2 py-1 rounded-md font-semibold"
+                                >
+                                    Vender
+                                </Link>
                             </>
                         )}
                     </div>

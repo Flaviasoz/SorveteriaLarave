@@ -11,7 +11,7 @@ class ItemVendaController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'codProduto' => 'required|integer|exists:produtos,codProduto',
+            'codProduto' => 'required|integer|exists:produto,codProduto',
             'vendaSeq' => 'required|integer|exists:venda,seq',
             'qtdProduto' => 'required|integer|min:1',
         ]);

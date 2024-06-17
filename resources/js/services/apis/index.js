@@ -89,3 +89,47 @@ export const realizarlogin = async (data) => {
     const response = await axios.delete(`/produtos/${id}`);
     return Promise.resolve(response);
   }
+
+  // venda
+
+  export const criarVenda = async (data) => {
+    const response = await axios.post('/vendas', { ...data });
+    return Promise.resolve(response);
+  }
+
+  export const getVendas = async () => {
+    const response = await axios.get('/vendas');
+    return Promise.resolve(response);
+  }
+
+  export const atualizarVenda = async (data) => {
+    const response = await axios.put(`/vendas/${data.seq}`, { ...data });
+    return Promise.resolve(response);
+  }
+
+  export const deletarVenda = async (seq) => {
+    const response = await axios.delete(`/vendas/${seq}`);
+    return Promise.resolve(response);
+  }
+
+  //item venda
+
+  export const criarItemVenda = async (data) => {
+    const response = await axios.post('/item-venda', { ...data });
+    return Promise.resolve(response);
+  }
+
+  export const getItensVenda = async () => {
+    const response = await axios.get('/item-venda');
+    return Promise.resolve(response);
+  }
+
+  export const atualizarItemVenda = async (data) => {
+    const response = await axios.put(`/item-venda/${data.id}`, { ...data });
+    return Promise.resolve(response);
+  }
+
+  export const deletarItemVenda = async (id) => {
+    const response = await axios.delete(`/item-venda/${id}`);
+    return Promise.resolve(response);
+  }

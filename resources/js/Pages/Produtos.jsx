@@ -23,7 +23,7 @@ const Produtos = () => {
     const categorias = useQuery("categorias", getCategoria);
     const fornecedores = useQuery("fornecedores", getFornecedores);
 
-    const excluirFornecedor = useMutation(deletarProduto, {
+    const excluirProduto = useMutation(deletarProduto, {
         onSuccess: () => {
             produtos.refetch();
         },
@@ -165,7 +165,7 @@ const Produtos = () => {
                                     type="button"
                                     className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     onClick={() =>
-                                        excluirFornecedor.mutateAsync(
+                                        excluirProduto.mutateAsync(
                                             row.codProduto
                                         )
                                     }

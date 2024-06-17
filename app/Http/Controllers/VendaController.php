@@ -10,18 +10,24 @@ class VendaController extends Controller
 {
     public function create(Request $request)
     {
+        $numCupom = Venda::max('numCupom') + 1;
+        $dtaVenda = now();
+
         $validator = Validator::make($request->all(), [
-            'numCupom' => 'required|integer',
-            'dtaVenda' => 'required|date',
             'valorTotal' => 'required|numeric|between:0,99999999.99',
-            'codUsuario' => 'required|integer|exists:usuarios,codUsuario',
+            'codUsuario' => 'required|integer|exists:usuario,codUsuario',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => 'Campos faltando ou inválidos', 'errors' => $validator->errors()], 400);
         }
 
-        $novaVenda = Venda::create($request->all());
+        $novaVenda = Venda::create([
+            'numCupom' => $numCupom,
+            'dtaVenda' => $dtaVenda,
+            'valorTotal' => $request->valorTotal,
+            'codUsuario' => $request->codUsuario,
+        ]);
 
         return response()->json($novaVenda, 201);
     }
