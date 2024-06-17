@@ -28,7 +28,7 @@ const NavBar = () => {
             <Head title="Sorveteria" />
             <nav className="bg-gray-800 p-3">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4 w-[700px]">
                         {getToken() && (
                             <>
                                 <Link
@@ -60,6 +60,12 @@ const NavBar = () => {
                                     className="text-white hover:text-gray-300 px-2 py-1 rounded-md font-semibold"
                                 >
                                     Vender
+                                </Link>
+                                <Link
+                                    href={route("relVendas")}
+                                    className="text-white hover:text-gray-300 px-2 py-1 rounded-md font-semibold"
+                                >
+                                    Rel. de vendas
                                 </Link>
                             </>
                         )}
