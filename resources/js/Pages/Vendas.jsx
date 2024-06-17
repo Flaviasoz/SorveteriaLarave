@@ -8,8 +8,15 @@ import {
     getProdutos,
 } from "../services/apis/index";
 import ProductCard from "../components/card";
+import Cookies from "js-cookie";
 
 export default function Vendas() {
+    const getUser = () => {
+        const info = Cookies.get("LOGIN_INFO");
+        const infodec = info ? JSON.parse(info).user : undefined;
+        return infodec;
+    };
+
     const [bag, setBag] = useState([]);
     const [expand, setExpand] = useState(false);
     const valorTotal = bag.reduce(
@@ -128,7 +135,8 @@ export default function Vendas() {
                                             if (valorTotal > 0) {
                                                 finalizarVenda.mutateAsync({
                                                     valorTotal,
-                                                    codUsuario: 3,
+                                                    codUsuario:
+                                                        getUser().codUsuario,
                                                 });
                                             }
                                         }}

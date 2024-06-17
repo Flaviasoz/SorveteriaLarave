@@ -36,3 +36,7 @@ Route::get('/produtos', function () {
 Route::get('/vendas', function () {
     return Inertia::render('Vendas');
 })->name('vendas');
+
+Route::get('/relVendas', function () {
+    return Inertia::render('RelVendas');
+})->name('relVendas');

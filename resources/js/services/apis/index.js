@@ -119,8 +119,8 @@ export const realizarlogin = async (data) => {
     return Promise.resolve(response);
   }
 
-  export const getItensVenda = async () => {
-    const response = await axios.get('/item-venda');
+  export const getItensVenda = async (data) => {
+    const response = await axios.get(`/item-venda?vendaSeq=${data.vendaSeq}`);
     return Promise.resolve(response);
   }
 
