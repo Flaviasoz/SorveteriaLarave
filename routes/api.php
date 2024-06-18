@@ -16,7 +16,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // estados
     Route::post('/estados', [EstadosController::class, 'create'])->name('estados.create');
     Route::get('/estados', [EstadosController::class, 'read'])->name('estados.read');
