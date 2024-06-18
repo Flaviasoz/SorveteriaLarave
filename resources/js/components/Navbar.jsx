@@ -11,6 +11,11 @@ const NavBar = () => {
         const infodec = info ? JSON.parse(info).accessToken : undefined;
         return infodec;
     };
+    
+    if(!getToken() && window.location.pathname !== '/'){
+        window.location.href = route('login')
+    }
+
     instance.defaults.headers.common.Authorization = `Bearer ${getToken()}`;
 
     const getUser = () => {
