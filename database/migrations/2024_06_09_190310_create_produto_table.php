@@ -15,7 +15,7 @@ class CreateProdutoTable extends Migration
             $table->integer('estoque');
             $table->integer('estoqueMinimo');
             $table->unsignedBigInteger('codFornecedor');
-            $table->unsignedBigInteger('codCategoria');
+            $table->unsignedInteger('codCategoria');
             $table->timestamps();
 
             $table->foreign('codFornecedor')
